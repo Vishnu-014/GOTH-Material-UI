@@ -1,0 +1,62 @@
+package pages
+import "github.com/Vishnu-014/goth-app/components"
+
+templ HomePage() {
+    <html>
+        <head>
+            <script src="/static/htmx.min.js"></script>
+            <title>GOTH Project</title>
+        </head>
+        <body>
+            <h1>Welcome to GOTH Stack 🚀</h1>
+            <button 
+                hx-get="/hello" 
+                hx-target="#result" 
+                hx-swap="innerHTML">
+                Click me
+            </button>
+            <button data-tooltip="Save changes to server">💾 Save</button>
+            @components.Tooltip()
+<span
+    data-tooltip-title="Popover Title"
+    data-tooltip-desc="Description of what is being displayed, or information that pertains to the tutorial lorem ipsum."
+    style="cursor: pointer; color: #0055aa;"
+>
+    ⚡️
+</span>
+<span
+  data-tooltip-title="Popover Title"
+  data-tooltip-desc="Description here..."
+  data-tooltip-position="right"
+>
+  😂
+</span>
+<span
+  data-tooltip-title="Popover Title"
+  data-tooltip-desc="This appears at the bottom of the icon."
+  data-tooltip-position="bottom"
+  style="cursor: pointer;"
+>
+  bottom
+</span>
+
+<span
+  data-tooltip-title="Popover Left"
+  data-tooltip-desc="This appears on the left side."
+  data-tooltip-position="left"
+  style="cursor: pointer; margin-left: 50px;"
+>
+  left
+</span>
+<button data-tooltip-title="Popover Left"
+  data-tooltip-desc="This appears on the left side."
+  data-tooltip-position="left"
+  style="cursor: pointer; margin-left: 50px;">
+
+  left btn
+</button>
+
+            <div id="result"></div>
+        </body>
+    </html>
+}

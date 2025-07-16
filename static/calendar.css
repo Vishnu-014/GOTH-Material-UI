@@ -1,0 +1,65 @@
+.datepicker-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.datepicker-input-group {
+  display: flex;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.datepicker-input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  outline: none;
+}
+
+.calendar-button {
+  background: #0c55b8;
+  color: white;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.calendar-popup-container {
+  position: absolute;
+  top: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  z-index: 100;
+  padding: 8px;
+  width: 280px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.day-button {
+  padding: 6px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.day-button.selected {
+  background: #0C55B8;
+  color: white;
+  border-radius: 4px;
+}
+
+.day-button.current {
+  border: 1px solid #0C55B8;
+}

@@ -1,0 +1,158 @@
+package components
+
+templ Tooltip() {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Remove tooltip on outside click
+            document.addEventListener("click", (event) => {
+                const active = document.querySelector(".custom-tooltip");
+                if (
+                    active &&
+                    !active.contains(event.target) &&
+                    !event.target.matches("[data-tooltip-title]")
+                ) {
+                    active.remove();
+                }
+            });
+
+            // Show tooltip on icon click
+            document.querySelectorAll("[data-tooltip-title]").forEach((icon) => {
+                icon.addEventListener("click", (e) => {
+                    e.stopPropagation();
+
+                    document.querySelectorAll(".custom-tooltip").forEach(t => t.remove());
+
+                    const title = icon.getAttribute("data-tooltip-title") || "";
+                    const desc = icon.getAttribute("data-tooltip-desc") || "";
+                    const position = icon.getAttribute("data-tooltip-position") || "top";
+
+                    const tooltip = document.createElement("div");
+                    tooltip.className = `custom-tooltip tooltip-${position}`;
+                    tooltip.innerHTML = `
+                        <div class="tooltip-content">
+                            <div class="tooltip-header">
+                                <strong>${title}</strong>
+                                <button class="tooltip-close">&times;</button>
+                            </div>
+                            <div class="tooltip-desc">${desc}</div>
+                        </div>
+                        <div class="tooltip-arrow"></div>
+                    `;
+                    document.body.appendChild(tooltip);
+
+                    const iconRect = icon.getBoundingClientRect();
+                    const tooltipRect = tooltip.getBoundingClientRect();
+
+                    let top, left;
+
+                    switch (position) {
+                        case "bottom":
+                            top = iconRect.bottom + 10 + window.scrollY;
+                            left = iconRect.left + iconRect.width / 2 - tooltipRect.width / 2 + window.scrollX;
+                            break;
+                        case "left":
+                            top = iconRect.top + iconRect.height / 2 - tooltipRect.height / 2 + window.scrollY;
+                            left = iconRect.left - tooltipRect.width - 10 + window.scrollX;
+                            break;
+                        case "right":
+                            top = iconRect.top + iconRect.height / 2 - tooltipRect.height / 2 + window.scrollY;
+                            left = iconRect.right + 10 + window.scrollX;
+                            break;
+                        case "top":
+                        default:
+                            top = iconRect.top - tooltipRect.height - 10 + window.scrollY;
+                            left = iconRect.left + iconRect.width / 2 - tooltipRect.width / 2 + window.scrollX;
+                            break;
+                    }
+
+                    tooltip.style.top = `${top}px`;
+                    tooltip.style.left = `${left}px`;
+
+                    tooltip.querySelector(".tooltip-close").addEventListener("click", () => {
+                        tooltip.remove();
+                    });
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .custom-tooltip {
+            position: absolute;
+            background: #fff;
+            color: #000;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            padding: 12px;
+            width: 260px;
+            font-family: sans-serif;
+            z-index: 9999;
+        }
+
+        .tooltip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tooltip-close {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .tooltip-desc {
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        .tooltip-arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        /* Arrow styles based on direction */
+        .tooltip-top .tooltip-arrow {
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #fff;
+            filter: drop-shadow(0 1px 1px rgba(0,0,0,0.2));
+        }
+
+        .tooltip-bottom .tooltip-arrow {
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid #fff;
+            filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.2));
+        }
+
+        .tooltip-left .tooltip-arrow {
+            top: 50%;
+            right: -10px;
+            transform: translateY(-50%);
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid #fff;
+            filter: drop-shadow(1px 0px 1px rgba(0,0,0,0.2));
+        }
+
+        .tooltip-right .tooltip-arrow {
+            top: 50%;
+            left: -10px;
+            transform: translateY(-50%);
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid #fff;
+            filter: drop-shadow(-1px 0px 1px rgba(0,0,0,0.2));
+        }
+    </style>
+}
