@@ -1,0 +1,36 @@
+package pages
+
+templ MainPage(currentPage int) {
+    <div>
+        <h1 class="text-2xl font-bold mb-4">Page {currentPage} Data</h1>
+
+        <div id="data-section">
+            switch currentPage {
+                case 1:
+                    <ul>
+                        <li>Item A1</li>
+                        <li>Item A2</li>
+                        <li>Item A3</li>
+                    </ul>
+                case 2:
+                    <ul>
+                        <li>Item B1</li>
+                        <li>Item B2</li>
+                        <li>Item B3</li>
+                    </ul>
+                case 3:
+                    <ul>
+                        <li>Item C1</li>
+                        <li>Item C2</li>
+                        <li>Item C3</li>
+                    </ul>
+                default:
+                    <p>No data for this page</p>
+            }
+        </div>
+
+        <div id="pagination-section">
+            Pagination(currentPage, 3, "/page", "body")
+        </div>
+    </div>
+}

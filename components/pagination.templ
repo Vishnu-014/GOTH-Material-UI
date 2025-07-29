@@ -1,0 +1,90 @@
+package components
+
+import "fmt"
+
+templ Pagination(currentPage int, totalPages int, hxGet string, hxTarget string) {
+    <div class="pagination-container">
+        <ul class="pagination">
+            <li>
+                <button 
+                    class="pagination-btn"
+                    disabled={currentPage == 1}
+                    hx-get={fmt.Sprintf("%s?page=%d", hxGet, currentPage-1)}
+                    hx-target={hxTarget}
+                    hx-swap="innerHTML"
+                >
+                    &laquo;
+                </button>
+            </li>
+
+            for i := 1; i <= totalPages; i++ {
+                <li>
+                    <button 
+                        class={`pagination-btn ${func() string {
+                            if i == currentPage {
+                                return "active"
+                            }
+                            return ""
+                        }()}`}
+                        hx-get={fmt.Sprintf("%s?page=%d", hxGet, i)}
+                        hx-target={hxTarget}
+                        hx-swap="innerHTML"
+                    >
+                        {i}
+                    </button>
+                </li>
+            }
+
+            <li>
+                <button 
+                    class="pagination-btn"
+                    disabled={currentPage == totalPages}
+                    hx-get={fmt.Sprintf("%s?page=%d", hxGet, currentPage+1)}
+                    hx-target={hxTarget}
+                    hx-swap="innerHTML"
+                >
+                    &raquo;
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <style>
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            gap: 0.5rem;
+        }
+
+        .pagination-btn {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            background-color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background-color: #f1f1f1;
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pagination-btn.active {
+            background-color: #333;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+}

@@ -1,0 +1,28 @@
+package components
+
+templ Button(
+    text string,
+    variant string,
+    size string,
+    tooltipTitle string,
+    tooltipDesc string,
+    tooltipPosition string,
+    hxGet string,
+    hxTarget string,
+    hxSwap string,
+    onClick templ.ComponentScript,
+) {
+    <button
+        class={`btn ${variant} ${size}`}
+        data-tooltip-title={tooltipTitle}
+        data-tooltip-desc={tooltipDesc}
+        data-tooltip-position={tooltipPosition}
+        hx-get={hxGet}
+        hx-target={hxTarget}
+        hx-swap={hxSwap}
+        onclick={onClick}
+        style="cursor: pointer;"
+    >
+        {text}
+    </button>
+}

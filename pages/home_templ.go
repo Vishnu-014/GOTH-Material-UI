@@ -31,7 +31,7 @@ func HomePage() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<html><head><script src=\"/static/htmx.min.js\"></script><title>GOTH Project</title></head><body><h1>Welcome to GOTH Stack 🚀</h1><button hx-get=\"/hello\" hx-target=\"#result\" hx-swap=\"innerHTML\">Click me</button> <button data-tooltip=\"Save changes to server\">💾 Save</button>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<html><head><script src=\"/static/htmx.min.js\"></script><title>GOTH Project</title></head><body><h1>Welcome to GOTH Stack 🚀</h1><div id=\"result\"></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -39,7 +39,28 @@ func HomePage() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<span data-tooltip-title=\"Popover Title\" data-tooltip-desc=\"Description of what is being displayed, or information that pertains to the tutorial lorem ipsum.\" style=\"cursor: pointer; color: #0055aa;\">⚡️</span> <span data-tooltip-title=\"Popover Title\" data-tooltip-desc=\"Description here...\" data-tooltip-position=\"right\">😂</span> <span data-tooltip-title=\"Popover Title\" data-tooltip-desc=\"This appears at the bottom of the icon.\" data-tooltip-position=\"bottom\" style=\"cursor: pointer;\">bottom</span> <span data-tooltip-title=\"Popover Left\" data-tooltip-desc=\"This appears on the left side.\" data-tooltip-position=\"left\" style=\"cursor: pointer; margin-left: 50px;\">left</span> <button data-tooltip-title=\"Popover Left\" data-tooltip-desc=\"This appears on the left side.\" data-tooltip-position=\"left\" style=\"cursor: pointer; margin-left: 50px;\">left btn</button><div id=\"result\"></div></body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<button hx-get=\"/hello\" hx-target=\"#result\" hx-swap=\"innerHTML\">Click me</button>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.Button("Open Modal", "btn-primary", "btn-medium", "Open", "Click to open modal", "top", "", "", "",
+			templ.JSFuncCall("alert", "Button clicked!")).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.Snackbar().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<button onclick=\"showSnackbar('Saved!', 'success', 3000, 'top-left')\">Top Left</button> <button onclick=\"showSnackbar('Warning here!', 'warning', 3000, 'top-right')\">Top Right</button> <button onclick=\"showSnackbar('Info message.', 'info', 3000, 'bottom-left')\">Bottom Left</button> <button onclick=\"showSnackbar('Error occurred.', 'success', 3000, 'bottom-right')\">Bottom Right</button> <button onclick=\"showSnackbar('Error occurred.', 'warning', 3000, 'bottom-center')\">bottom-center</button> <button onclick=\"showSnackbar('Error occurred.', 'error', 3000, 'top-center')\">top-center</button>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = components.Pagination(3, 10, "/your-api-endpoint", "#target-div").Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
